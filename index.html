@@ -1,19 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Employee Management System</title>
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
   </head>
   <body>
-    <main>
-      <h1>Employee Management System</h1>
-      <p>Employee management dashboard</p>
-    </main>
+    <div class="app-layout">
+      <aside class="sidebar">
+        <h1>EMS</h1>
+        <nav aria-label="Main navigation">
+          <a href="#dashboard" class="active" aria-current="page">Dashboard</a>
+          <a href="#employees">Employees</a>
+          <a href="#departments">Departments</a>
+          <a href="#attendance">Attendance</a>
+          <a href="#leave-management">Leave Management</a>
+        </nav>
+      </aside>
+      <div class="main-content">
+        <header class="topbar">
+          <button
+            type="button"
+            class="menu-toggle"
+            aria-label="Open navigation menu"
+          >
+            <span aria-hidden="true">&#9776;</span>
+          </button>
+          <h2>Dashboard</h2>
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="add-employee-button"
+          >
+            Add Employee
+          </button>
+        </header>
+        <main class="dashboard" id="dashboard">
+          <section class="stats-grid" aria-label="Employee statistics">
+            <article class="stat-card">
+              <h3 class="stat-label">Total Employees</h3>
+              <p class="stat-value">0</p>
+            </article>
+            <article class="stat-card">
+              <h3 class="stat-label">Active Employees</h3>
+              <p class="stat-value">0</p>
+            </article>
+            <article class="stat-card">
+              <h3 class="stat-label">Departments</h3>
+              <p class="stat-value">0</p>
+            </article>
+            <article class="stat-card">
+              <h3 class="stat-label">Employees on Leave</h3>
+              <p class="stat-value">0</p>
+            </article>
+          </section>
+        </main>
+      </div>
+    </div>
     <script type="module" src="js/app.js"></script>
   </body>
 </html>
