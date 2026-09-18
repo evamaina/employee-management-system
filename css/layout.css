@@ -16,6 +16,13 @@
   z-index: 100;
 }
 
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .sidebar nav {
   margin-top: 2rem;
 }
@@ -62,7 +69,8 @@
   z-index: 10;
 }
 
-.menu-toggle {
+.menu-toggle,
+.sidebar-close {
   display: none;
 }
 
@@ -83,7 +91,8 @@
     margin-left: 0;
   }
 
-  .menu-toggle {
+  .menu-toggle,
+  .sidebar-close {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -97,9 +106,10 @@
     font-size: 1.25rem;
   }
 
-  .menu-toggle:focus-visible {
-  outline: 3px solid var(--color-primary);
-  outline-offset: 3px;
+  .menu-toggle:focus-visible,
+  .sidebar-close:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
   }
 
   .topbar {

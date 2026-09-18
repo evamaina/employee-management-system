@@ -12,7 +12,17 @@
   <body>
     <div class="app-layout">
       <aside class="sidebar" id="sidebar">
-        <h1>EMS</h1>
+        <div class="sidebar-header">
+          <h1>EMS</h1>
+          <button
+            type="button"
+            class="sidebar-close"
+            aria-label="Close navigation menu"
+            aria-controls="sidebar"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
         <nav aria-label="Main navigation">
           <a href="#dashboard" class="active" aria-current="page">Dashboard</a>
           <a href="#employees">Employees</a>
