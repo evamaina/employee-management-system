@@ -12,6 +12,8 @@
   background-color: var(--color-sidebar-background);
   color: #ffffff;
   overflow-y: auto;
+  transition: transform 0.3s ease;
+  z-index: 100;
 }
 
 .sidebar nav {
@@ -66,4 +68,45 @@
 
 .dashboard {
   padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-small);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-size: 1.25rem;
+  }
+
+  .menu-toggle:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+  }
+
+  .topbar {
+    padding: 1rem;
+  }
+
+  .dashboard {
+    padding: 1rem;
+  }
 }
