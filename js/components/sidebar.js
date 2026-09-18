@@ -8,7 +8,12 @@ export function initializeSidebar() {
 
   const closeButton = sidebar.querySelector(".sidebar-close");
 
-  function updateMenuButton(isOpen) {
+  if (!closeButton) {
+    return;
+  }
+
+  function setSidebarState(isOpen) {
+    sidebar.classList.toggle("is-open", isOpen);
     menuToggle.setAttribute("aria-expanded", String(isOpen));
     menuToggle.setAttribute(
       "aria-label",
@@ -17,13 +22,10 @@ export function initializeSidebar() {
   }
 
   menuToggle.addEventListener("click", () => {
-    const isOpen = sidebar.classList.toggle("is-open");
-    updateMenuButton(isOpen);
+    setSidebarState(true);
   });
 
-  closeButton?.addEventListener("click", () => {
-    sidebar.classList.remove("is-open");
-    updateMenuButton(false);
-    menuToggle.focus();
+  closeButton.addEventListener("click", () => {
+    setSidebarState(false);
   });
 }
