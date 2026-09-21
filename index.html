@@ -70,6 +70,33 @@
               <p class="stat-value" id="employees-on-leave-count">0</p>
             </article>
           </section>
+          <section class="employee-section">
+            <header class="section-header">
+              <h3 id="employee-directory-title">Employee Directory</h3>
+              <p>View and manage employee records</p>
+            </header>
+            <div
+              class="table-wrapper"
+              role="region"
+              aria-labelledby="employee-directory-title"
+              tabindex="0"
+            >
+              <table class="employee-table">
+                <caption class="visually-hidden">Employee directory</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Employee</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Job Title</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="employee-table-body"></tbody>
+              </table>
+            </div>
+          </section>
         </main>
       </div>
     </div>
