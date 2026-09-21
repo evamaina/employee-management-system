@@ -25,4 +25,24 @@ export class EmployeeService {
   findById(id) {
     return this.#employees.find((employee) => employee.id === id) ?? null;
   }
+
+  getStatistics() {
+    const totalEmployees = this.#employees.length;
+    const activeEmployees = this.#employees.filter(
+      (employee) => employee.status === "active",
+    ).length;
+    const departments = new Set(
+      this.#employees.map((employee) => employee.department),
+    ).size;
+    const employeesOnLeave = this.#employees.filter(
+      (employee) => employee.status === "on-leave",
+    ).length;
+
+    return {
+      totalEmployees,
+      activeEmployees,
+      departments,
+      employeesOnLeave,
+    };
+  }
 }
