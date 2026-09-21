@@ -1,0 +1,32 @@
+export const sampleEmployees = [
+  {
+    firstName: "Grace",
+    lastName: "Wanjiku",
+    email: "grace@example.com",
+    department: "Engineering",
+    jobTitle: "Software Engineer",
+    startDate: "2026-09-01",
+    salary: 120000,
+    status: "active",
+  },
+  {
+    firstName: "David",
+    lastName: "Otieno",
+    email: "david@example.com",
+    department: "Finance",
+    jobTitle: "Accountant",
+    startDate: "2026-09-01",
+    salary: 90000,
+    status: "on-leave",
+  },
+  {
+    firstName: "Alice",
+    lastName: "Njeri",
+    email: "alice@example.com",
+    department: "Engineering",
+    jobTitle: "Software Engineer",
+    startDate: "2026-09-01",
+    salary: 110000,
+    status: "inactive",
+  },
+];
