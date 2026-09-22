@@ -6,7 +6,6 @@ import { renderDashboardStatistics } from "./views/dashboardView.js";
 import { renderEmployeeTable } from "./views/employeeTableView.js";
 
 initializeSidebar();
-initializeEmployeeDialog();
 
 const employeeService = new EmployeeService();
 
@@ -14,6 +13,14 @@ sampleEmployees.forEach((employeeData) => {
   employeeService.add(employeeData);
 });
 
-const statistics = employeeService.getStatistics();
-renderDashboardStatistics(statistics);
-renderEmployeeTable(employeeService.getAll());
+function renderApplication() {
+  renderDashboardStatistics(employeeService.getStatistics());
+  renderEmployeeTable(employeeService.getAll());
+}
+
+initializeEmployeeDialog((employeeData) => {
+  employeeService.add(employeeData);
+  renderApplication();
+});
+
+renderApplication();
