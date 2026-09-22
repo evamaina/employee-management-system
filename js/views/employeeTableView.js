@@ -7,6 +7,17 @@ export function renderEmployeeTable(employees) {
 
   tableBody.replaceChildren();
 
+  if (employees.length === 0) {
+    const row = document.createElement("tr");
+    const emptyCell = document.createElement("td");
+    emptyCell.colSpan = 6;
+    emptyCell.className = "table-empty";
+    emptyCell.textContent = "No employees found.";
+    row.append(emptyCell);
+    tableBody.append(row);
+    return;
+  }
+
   employees.forEach((employee) => {
     const row = document.createElement("tr");
 
@@ -27,26 +38,36 @@ export function renderEmployeeTable(employees) {
     jobTitleCell.textContent = employee.jobTitle;
 
     const statusCell = document.createElement("td");
-    statusCell.textContent = employee.status;
+    const statusBadge = document.createElement("span");
+    statusBadge.className = `status-badge status-${employee.status}`;
+    statusBadge.textContent = employee.status.replaceAll("-", " ");
+    statusCell.append(statusBadge);
 
     const startDateCell = document.createElement("td");
     startDateCell.textContent = employee.startDate;
 
     const actionsCell = document.createElement("td");
+    const actions = document.createElement("div");
+    actions.className = "table-actions";
 
     const editButton = document.createElement("button");
     editButton.type = "button";
+    editButton.className = "action-button action-button-edit";
     editButton.textContent = "Edit";
+    editButton.setAttribute("aria-label", `Edit ${employee.fullName}`);
     editButton.dataset.action = "edit";
     editButton.dataset.employeeId = employee.id;
 
     const deleteButton = document.createElement("button");
     deleteButton.type = "button";
+    deleteButton.className = "action-button action-button-delete";
     deleteButton.textContent = "Delete";
+    deleteButton.setAttribute("aria-label", `Delete ${employee.fullName}`);
     deleteButton.dataset.action = "delete";
     deleteButton.dataset.employeeId = employee.id;
 
-    actionsCell.append(editButton, deleteButton);
+    actions.append(editButton, deleteButton);
+    actionsCell.append(actions);
 
     row.append(
       employeeCell,
