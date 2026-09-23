@@ -26,6 +26,17 @@ export class EmployeeService {
     return this.#employees.find((employee) => employee.id === id) ?? null;
   }
 
+  removeById(id) {
+    const index = this.#employees.findIndex((employee) => employee.id === id);
+
+    if (index === -1) {
+      return false;
+    }
+
+    this.#employees.splice(index, 1);
+    return true;
+  }
+
   getStatistics() {
     const totalEmployees = this.#employees.length;
     const activeEmployees = this.#employees.filter(
