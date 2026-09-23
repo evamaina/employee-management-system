@@ -1,7 +1,11 @@
-export function initializeEmployeeTableActions(onDelete) {
+export function initializeEmployeeTableActions({ onEdit, onDelete } = {}) {
   const tableBody = document.getElementById("employee-table-body");
 
-  if (!tableBody || typeof onDelete !== "function") {
+  if (
+    !tableBody ||
+    typeof onEdit !== "function" ||
+    typeof onDelete !== "function"
+  ) {
     return;
   }
 
@@ -16,24 +20,25 @@ export function initializeEmployeeTableActions(onDelete) {
       return;
     }
 
-    if (actionButton.dataset.action !== "delete") {
-      return;
-    }
-    const employeeId = actionButton.dataset.employeeId;
+    const { action, employeeId } = actionButton.dataset;
 
     if (!employeeId) {
       return;
-}
+    }
 
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this employee?",
-    );
-
-    if (!confirmed) {
+    if (action === "edit") {
+      onEdit(employeeId);
       return;
     }
-  
-    onDelete(actionButton.dataset.employeeId);
-    
+
+    if (action === "delete") {
+      const confirmed = window.confirm(
+        "Are you sure you want to delete this employee?",
+      );
+
+      if (confirmed) {
+        onDelete(employeeId);
+      }
+    }
   });
 }

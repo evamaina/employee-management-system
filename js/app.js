@@ -19,15 +19,32 @@ function renderApplication() {
   renderEmployeeTable(employeeService.getAll());
 }
 
-initializeEmployeeDialog((employeeData) => {
-  employeeService.add(employeeData);
+const employeeDialog = initializeEmployeeDialog((formData) => {
+  const { employeeId, ...employeeData } = formData;
+
+  if (employeeId) {
+    employeeService.updateById(employeeId, employeeData);
+  } else {
+    employeeService.add(employeeData);
+  }
+
   renderApplication();
 });
 
-initializeEmployeeTableActions((employeeId) => {
-  if (employeeService.removeById(employeeId)) {
-    renderApplication();
-  }
+initializeEmployeeTableActions({
+  onEdit(employeeId) {
+    const employee = employeeService.findById(employeeId);
+
+    if (employee) {
+      employeeDialog?.openForEdit(employee);
+    }
+  },
+
+  onDelete(employeeId) {
+    if (employeeService.removeById(employeeId)) {
+      renderApplication();
+    }
+  },
 });
 
 renderApplication();
