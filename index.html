@@ -82,7 +82,9 @@
               tabindex="0"
             >
               <table class="employee-table">
-                <caption class="visually-hidden">Employee directory</caption>
+                <caption class="visually-hidden">
+                  Employee directory
+                </caption>
                 <thead>
                   <tr>
                     <th scope="col">Employee</th>
@@ -100,6 +102,112 @@
         </main>
       </div>
     </div>
+    <dialog
+      id="employee-dialog"
+      aria-labelledby="employee-dialog-title"
+      class="employee-dialog"
+    >
+      <form id="employee-form">
+        <input type="hidden" id="employee-id" name="employeeId" />
+        <header class="dialog-header">
+          <h2 id="employee-dialog-title">Add Employee</h2>
+          <button
+            type="button"
+            class="dialog-close"
+            id="close-employee-dialog"
+            aria-label="Close dialog"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </header>
+        <div class="form-fields">
+          <div class="form-group">
+            <label for="first-name">First name</label>
+            <input
+              type="text"
+              id="first-name"
+              name="firstName"
+              autocomplete="given-name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="last-name">Last name</label>
+            <input
+              type="text"
+              id="last-name"
+              name="lastName"
+              autocomplete="family-name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="department">Department</label>
+            <input type="text" id="department" name="department" required />
+          </div>
+          <div class="form-group">
+            <label for="job-title">Job title</label>
+            <input
+              type="text"
+              id="job-title"
+              name="jobTitle"
+              autocomplete="organization-title"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="start-date">Start date</label>
+            <input type="date" id="start-date" name="startDate" required />
+          </div>
+          <div class="form-group">
+            <label for="salary">Salary</label>
+            <input
+              type="number"
+              id="salary"
+              name="salary"
+              min="0"
+              step="0.01"
+              value="0"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status" required>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="on-leave">On leave</option>
+            </select>
+          </div>
+        </div>
+        <p
+          class="form-error"
+          id="employee-form-error"
+          role="alert"
+          hidden
+        ></p>
+        <div class="form-actions">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            id="cancel-employee-button"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">Save Employee</button>
+        </div>
+      </form>
+    </dialog>
     <script type="module" src="js/app.js"></script>
   </body>
 </html>
