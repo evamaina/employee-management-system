@@ -1,5 +1,6 @@
 import { initializeSidebar } from "./components/sidebar.js";
 import { initializeEmployeeDialog } from "./components/employeeDialog.js";
+import { initializeEmployeeTableActions } from "./components/employeeTableActions.js";
 import { EmployeeService } from "./services/employeeService.js";
 import { sampleEmployees } from "./data/sampleEmployees.js";
 import { renderDashboardStatistics } from "./views/dashboardView.js";
@@ -21,6 +22,12 @@ function renderApplication() {
 initializeEmployeeDialog((employeeData) => {
   employeeService.add(employeeData);
   renderApplication();
+});
+
+initializeEmployeeTableActions((employeeId) => {
+  if (employeeService.removeById(employeeId)) {
+    renderApplication();
+  }
 });
 
 renderApplication();
