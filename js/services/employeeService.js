@@ -26,6 +26,33 @@ export class EmployeeService {
     return this.#employees.find((employee) => employee.id === id) ?? null;
   }
 
+  updateById(id, updates) {
+    const index = this.#employees.findIndex((employee) => employee.id === id);
+
+    if (index === -1) {
+      return null;
+    }
+
+    const existingEmployee = this.#employees[index];
+    const updatedEmployee = new Employee({
+      ...existingEmployee,
+      ...updates,
+      id: existingEmployee.id,
+    });
+
+    const emailExists = this.#employees.some(
+      (employee, employeeIndex) =>
+        employeeIndex !== index && employee.email === updatedEmployee.email,
+    );
+
+    if (emailExists) {
+      throw new Error("An employee with this email already exists");
+    }
+
+    this.#employees[index] = updatedEmployee;
+    return updatedEmployee;
+  }
+
   removeById(id) {
     const index = this.#employees.findIndex((employee) => employee.id === id);
 
