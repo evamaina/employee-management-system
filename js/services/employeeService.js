@@ -28,6 +28,31 @@ export class EmployeeService {
     return [...this.#employees];
   }
 
+  getDepartments() {
+    const departments = new Set(
+      this.#employees.map((employee) => employee.department),
+    );
+
+    return [...departments].sort((a, b) => a.localeCompare(b));
+  }
+
+  filterEmployees({ query = "", department = "", status = "" } = {}) {
+    const normalizedQuery = query.trim().toLowerCase();
+
+    return this.#employees.filter((employee) => {
+      const matchesQuery =
+        !normalizedQuery ||
+        employee.fullName.toLowerCase().includes(normalizedQuery) ||
+        employee.email.toLowerCase().includes(normalizedQuery) ||
+        employee.jobTitle.toLowerCase().includes(normalizedQuery);
+      const matchesDepartment =
+        !department || employee.department === department;
+      const matchesStatus = !status || employee.status === status;
+
+      return matchesQuery && matchesDepartment && matchesStatus;
+    });
+  }
+
   findById(id) {
     return this.#employees.find((employee) => employee.id === id) ?? null;
   }
