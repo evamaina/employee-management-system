@@ -75,6 +75,48 @@
               <h3 id="employee-directory-title">Employee Directory</h3>
               <p>View and manage employee records</p>
             </header>
+            <div class="employee-toolbar" role="group" aria-label="Employee filters">
+              <div class="filter-control search-control">
+                <label class="visually-hidden" for="employee-search">
+                  Search employees
+                </label>
+                <input
+                  type="search"
+                  id="employee-search"
+                  placeholder="Search by name, email, or job title"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="filter-control">
+                <label class="visually-hidden" for="department-filter">
+                  Filter by department
+                </label>
+                <select id="department-filter">
+                  <option value="">All departments</option>
+                </select>
+              </div>
+
+              <div class="filter-control">
+                <label class="visually-hidden" for="status-filter">
+                  Filter by status
+                </label>
+                <select id="status-filter">
+                  <option value="">All statuses</option>
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                  <option value="on-leave">On leave</option>
+                </select>
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="clear-filters-button"
+              >
+                Clear filters
+              </button>
+            </div>
             <div
               class="table-wrapper"
               role="region"
