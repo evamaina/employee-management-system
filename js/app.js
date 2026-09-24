@@ -2,21 +2,37 @@ import { initializeSidebar } from "./components/sidebar.js";
 import { initializeEmployeeDialog } from "./components/employeeDialog.js";
 import { initializeEmployeeTableActions } from "./components/employeeTableActions.js";
 import { EmployeeService } from "./services/employeeService.js";
+import {
+  hasStoredEmployees,
+  loadEmployees,
+  saveEmployees,
+} from "./services/storageService.js";
 import { sampleEmployees } from "./data/sampleEmployees.js";
 import { renderDashboardStatistics } from "./views/dashboardView.js";
 import { renderEmployeeTable } from "./views/employeeTableView.js";
 
 initializeSidebar();
 
-const employeeService = new EmployeeService();
+const storageExists = hasStoredEmployees();
 
-sampleEmployees.forEach((employeeData) => {
-  employeeService.add(employeeData);
-});
+const initialEmployees = storageExists
+  ? loadEmployees()
+  : sampleEmployees;
+
+const employeeService = new EmployeeService(initialEmployees);
+
+if (!storageExists) {
+  saveEmployees(employeeService.getAll());
+}
 
 function renderApplication() {
   renderDashboardStatistics(employeeService.getStatistics());
   renderEmployeeTable(employeeService.getAll());
+}
+
+function persistAndRender() {
+  saveEmployees(employeeService.getAll());
+  renderApplication();
 }
 
 const employeeDialog = initializeEmployeeDialog((formData) => {
@@ -28,7 +44,7 @@ const employeeDialog = initializeEmployeeDialog((formData) => {
     employeeService.add(employeeData);
   }
 
-  renderApplication();
+  persistAndRender();
 });
 
 initializeEmployeeTableActions({
@@ -42,7 +58,7 @@ initializeEmployeeTableActions({
 
   onDelete(employeeId) {
     if (employeeService.removeById(employeeId)) {
-      renderApplication();
+      persistAndRender();
     }
   },
 });

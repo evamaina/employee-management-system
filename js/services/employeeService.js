@@ -3,6 +3,12 @@ import { Employee } from "../models/Employee.js";
 export class EmployeeService {
   #employees = [];
 
+  constructor(initialEmployees = []) {
+    initialEmployees.forEach((employeeData) => {
+      this.add(employeeData);
+    });
+  }
+
   add(employeeData) {
     const employee = new Employee(employeeData);
 

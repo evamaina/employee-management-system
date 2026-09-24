@@ -23,3 +23,7 @@ export function saveEmployees(employees) {
     throw new Error("Unable to save employee data");
   }
 }
+
+export function hasStoredEmployees() {
+  return localStorage.getItem(STORAGE_KEY) !== null;
+}
