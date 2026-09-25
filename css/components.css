@@ -90,7 +90,10 @@
 
 .employee-toolbar {
   display: grid;
-  grid-template-columns: minmax(15rem, 1fr) 12rem 12rem auto;
+  grid-template-columns:
+    minmax(14rem, 1fr)
+    repeat(3, minmax(9rem, 12rem))
+    auto;
   align-items: center;
   padding: 1.5rem;
   gap: 1rem;
@@ -367,7 +370,7 @@
 
 @media (max-width: 1200px) {
   .employee-toolbar {
-    grid-template-columns: minmax(0, 1.25fr) repeat(2, minmax(0, 1fr)) auto;
+    grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)) auto;
   }
 }
 
