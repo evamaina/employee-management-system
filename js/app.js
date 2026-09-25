@@ -26,6 +26,7 @@ let activeFilters = {
   query: "",
   department: "",
   status: "",
+  sortBy: "name-asc",
 };
 
 const employeeFilters = initializeEmployeeFilters({

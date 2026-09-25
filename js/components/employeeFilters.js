@@ -2,12 +2,14 @@ export function initializeEmployeeFilters({ onChange } = {}) {
   const searchInput = document.getElementById("employee-search");
   const departmentSelect = document.getElementById("department-filter");
   const statusSelect = document.getElementById("status-filter");
+  const sortSelect = document.getElementById("employee-sort");
   const clearButton = document.getElementById("clear-filters-button");
 
   if (
     !searchInput ||
     !departmentSelect ||
     !statusSelect ||
+    !sortSelect ||
     !clearButton ||
     typeof onChange !== "function"
   ) {
@@ -19,6 +21,7 @@ export function initializeEmployeeFilters({ onChange } = {}) {
       query: searchInput.value,
       department: departmentSelect.value,
       status: statusSelect.value,
+      sortBy: sortSelect.value,
     };
   }
 
@@ -55,10 +58,15 @@ export function initializeEmployeeFilters({ onChange } = {}) {
     onChange(getFilters());
   });
 
+  sortSelect.addEventListener("change", () => {
+    onChange(getFilters());
+  });
+
   clearButton.addEventListener("click", () => {
     searchInput.value = "";
     departmentSelect.value = "";
     statusSelect.value = "";
+    sortSelect.value = "name-asc";
     onChange(getFilters());
     searchInput.focus();
   });
