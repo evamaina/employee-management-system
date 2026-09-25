@@ -1,6 +1,7 @@
 import { initializeSidebar } from "./components/sidebar.js";
 import { initializeEmployeeDialog } from "./components/employeeDialog.js";
 import { initializeEmployeeTableActions } from "./components/employeeTableActions.js";
+import { initializeEmployeeFilters } from "./components/employeeFilters.js";
 import { EmployeeService } from "./services/employeeService.js";
 import {
   hasStoredEmployees,
@@ -21,13 +22,38 @@ const initialEmployees = storageExists
 
 const employeeService = new EmployeeService(initialEmployees);
 
+let activeFilters = {
+  query: "",
+  department: "",
+  status: "",
+};
+
+const employeeFilters = initializeEmployeeFilters({
+  onChange(filters) {
+    activeFilters = filters;
+    renderFilteredEmployees();
+  },
+});
+
 if (!storageExists) {
   saveEmployees(employeeService.getAll());
 }
 
+function renderFilteredEmployees() {
+  const employees = employeeService.filterEmployees(activeFilters);
+  renderEmployeeTable(employees);
+}
+
 function renderApplication() {
   renderDashboardStatistics(employeeService.getStatistics());
-  renderEmployeeTable(employeeService.getAll());
+
+  employeeFilters?.setDepartments(
+    employeeService.getDepartments(),
+  );
+
+  activeFilters = employeeFilters?.getFilters() ?? activeFilters;
+
+  renderFilteredEmployees();
 }
 
 function persistAndRender() {
