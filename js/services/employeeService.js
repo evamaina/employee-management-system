@@ -36,10 +36,15 @@ export class EmployeeService {
     return [...departments].sort((a, b) => a.localeCompare(b));
   }
 
-  filterEmployees({ query = "", department = "", status = "" } = {}) {
+  filterEmployees({
+    query = "",
+    department = "",
+    status = "",
+    sortBy = "name-asc",
+  } = {}) {
     const normalizedQuery = query.trim().toLowerCase();
 
-    return this.#employees.filter((employee) => {
+    const filteredEmployees = this.#employees.filter((employee) => {
       const matchesQuery =
         !normalizedQuery ||
         employee.fullName.toLowerCase().includes(normalizedQuery) ||
@@ -51,6 +56,23 @@ export class EmployeeService {
 
       return matchesQuery && matchesDepartment && matchesStatus;
     });
+
+    filteredEmployees.sort((a, b) => {
+      switch (sortBy) {
+        case "name-asc":
+          return a.fullName.localeCompare(b.fullName);
+        case "name-desc":
+          return b.fullName.localeCompare(a.fullName);
+        case "date-asc":
+          return a.startDate.localeCompare(b.startDate);
+        case "date-desc":
+          return b.startDate.localeCompare(a.startDate);
+        default:
+          return a.fullName.localeCompare(b.fullName);
+      }
+    });
+
+    return filteredEmployees;
   }
 
   findById(id) {
