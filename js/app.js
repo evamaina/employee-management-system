@@ -3,6 +3,7 @@ import { initializeEmployeeDialog } from "./components/employeeDialog.js";
 import { initializeEmployeeTableActions } from "./components/employeeTableActions.js";
 import { initializeEmployeeFilters } from "./components/employeeFilters.js";
 import { initializeEmployeePagination } from "./components/employeePagination.js";
+import { initializeEmployeeExport } from "./components/employeeExport.js";
 import { EmployeeService } from "./services/employeeService.js";
 import {
   hasStoredEmployees,
@@ -111,6 +112,12 @@ initializeEmployeeTableActions({
     if (employeeService.removeById(employeeId)) {
       persistAndRender();
     }
+  },
+});
+
+initializeEmployeeExport({
+  getEmployees() {
+    return employeeService.filterEmployees(activeFilters);
   },
 });
 
