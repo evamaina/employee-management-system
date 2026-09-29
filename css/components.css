@@ -92,6 +92,13 @@
   color: var(--color-text-muted);
 }
 
+.section-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 .employee-toolbar {
   display: grid;
   grid-template-columns:
@@ -434,7 +441,12 @@
     flex-direction: column;
   }
 
-  #export-employees-button {
+  .section-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .section-actions .btn {
     width: 100%;
   }
 

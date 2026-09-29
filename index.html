@@ -77,13 +77,30 @@
                 <p>View and manage employee records</p>
               </div>
 
-              <button
-                type="button"
-                class="btn btn-secondary"
-                id="export-employees-button"
-              >
-                Export CSV
-              </button>
+              <div class="section-actions">
+                <input
+                  type="file"
+                  id="import-employees-input"
+                  class="visually-hidden"
+                  accept=".csv,text/csv"
+                />
+
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="import-employees-button"
+                >
+                  Import CSV
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="export-employees-button"
+                >
+                  Export CSV
+                </button>
+              </div>
             </header>
             <div class="employee-toolbar" role="group" aria-label="Employee filters">
               <div class="filter-control search-control">
