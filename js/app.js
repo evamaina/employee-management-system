@@ -2,6 +2,7 @@ import { initializeSidebar } from "./components/sidebar.js";
 import { initializeEmployeeDialog } from "./components/employeeDialog.js";
 import { initializeEmployeeTableActions } from "./components/employeeTableActions.js";
 import { initializeEmployeeFilters } from "./components/employeeFilters.js";
+import { initializeEmployeePagination } from "./components/employeePagination.js";
 import { EmployeeService } from "./services/employeeService.js";
 import {
   hasStoredEmployees,
@@ -11,6 +12,7 @@ import {
 import { sampleEmployees } from "./data/sampleEmployees.js";
 import { renderDashboardStatistics } from "./views/dashboardView.js";
 import { renderEmployeeTable } from "./views/employeeTableView.js";
+import { paginate } from "./utils/pagination.js";
 
 initializeSidebar();
 
@@ -22,6 +24,9 @@ const initialEmployees = storageExists
 
 const employeeService = new EmployeeService(initialEmployees);
 
+const PAGE_SIZE = 5;
+let currentPage = 1;
+
 let activeFilters = {
   query: "",
   department: "",
@@ -32,6 +37,14 @@ let activeFilters = {
 const employeeFilters = initializeEmployeeFilters({
   onChange(filters) {
     activeFilters = filters;
+    currentPage = 1;
+    renderFilteredEmployees();
+  },
+});
+
+const employeePagination = initializeEmployeePagination({
+  onPageChange(page) {
+    currentPage = page;
     renderFilteredEmployees();
   },
 });
@@ -41,8 +54,19 @@ if (!storageExists) {
 }
 
 function renderFilteredEmployees() {
-  const employees = employeeService.filterEmployees(activeFilters);
-  renderEmployeeTable(employees);
+  const filteredEmployees =
+    employeeService.filterEmployees(activeFilters);
+
+  const pagination = paginate(
+    filteredEmployees,
+    currentPage,
+    PAGE_SIZE,
+  );
+
+  currentPage = pagination.currentPage;
+
+  renderEmployeeTable(pagination.items);
+  employeePagination?.render(pagination);
 }
 
 function renderApplication() {
