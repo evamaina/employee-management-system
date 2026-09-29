@@ -72,6 +72,10 @@
 }
 
 .section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   padding: 1.5rem;
   border-bottom: 1px solid var(--color-border);
 }
@@ -423,6 +427,15 @@
 @media (max-width: 640px) {
   .stats-grid {
     grid-template-columns: 1fr;
+  }
+
+  .section-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  #export-employees-button {
+    width: 100%;
   }
 
   .employee-toolbar {
