@@ -90,3 +90,82 @@ export function parseCsvRows(text) {
 
   return rows;
 }
+
+export function parseEmployeesCsv(text) {
+  const rows = parseCsvRows(text);
+  const headerIndex = rows.findIndex((row) =>
+    row.some((value) => value.trim() !== ""),
+  );
+
+  if (headerIndex === -1) {
+    throw new Error("The CSV file is empty");
+  }
+
+  const expectedHeaders = [
+    "ID",
+    "First Name",
+    "Last Name",
+    "Email",
+    "Department",
+    "Job Title",
+    "Start Date",
+    "Salary",
+    "Status",
+  ];
+  const headers = rows[headerIndex];
+
+  if (
+    headers.length !== expectedHeaders.length ||
+    headers.some((header, index) => header !== expectedHeaders[index])
+  ) {
+    throw new Error("The CSV headers are invalid");
+  }
+
+  const employees = [];
+
+  for (let index = headerIndex + 1; index < rows.length; index += 1) {
+    const row = rows[index];
+
+    if (row.every((value) => value.trim() === "")) {
+      continue;
+    }
+
+    if (row.length !== expectedHeaders.length) {
+      const rowNumber = index + 1;
+      throw new Error(`Invalid number of columns on row ${rowNumber}`);
+    }
+
+    const [
+      id,
+      firstName,
+      lastName,
+      email,
+      department,
+      jobTitle,
+      startDate,
+      salary,
+      status,
+    ] = row;
+
+    const numericSalary = Number(salary);
+
+    if (salary.trim() === "" || !Number.isFinite(numericSalary)) {
+      const rowNumber = index + 1;
+      throw new Error(`Invalid salary on row ${rowNumber}`);
+    }
+
+    employees.push({
+      id,
+      firstName,
+      lastName,
+      email,
+      department,
+      jobTitle,
+      startDate,
+      salary: numericSalary,
+      status,
+    });
+  }
+
+  return employees;
+}
