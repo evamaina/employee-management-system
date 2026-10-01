@@ -24,6 +24,43 @@ export class EmployeeService {
     return employee;
   }
 
+  addMany(employeeDataList) {
+    if (!Array.isArray(employeeDataList)) {
+      throw new Error("Employee import data must be an array");
+    }
+
+    const newEmployees = employeeDataList.map(
+      (employeeData) => new Employee(employeeData),
+    );
+    const existingEmails = new Set(
+      this.#employees.map((employee) => employee.email),
+    );
+    const existingIds = new Set(
+      this.#employees.map((employee) => employee.id),
+    );
+    const importedEmails = new Set();
+    const importedIds = new Set();
+
+    for (const employee of newEmployees) {
+      if (
+        existingEmails.has(employee.email) ||
+        importedEmails.has(employee.email)
+      ) {
+        throw new Error(`An employee with email ${employee.email} already exists`);
+      }
+
+      if (existingIds.has(employee.id) || importedIds.has(employee.id)) {
+        throw new Error(`An employee with ID ${employee.id} already exists`);
+      }
+
+      importedEmails.add(employee.email);
+      importedIds.add(employee.id);
+    }
+
+    this.#employees.push(...newEmployees);
+    return [...newEmployees];
+  }
+
   getAll() {
     return [...this.#employees];
   }

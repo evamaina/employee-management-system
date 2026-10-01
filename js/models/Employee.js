@@ -10,6 +10,10 @@ export class Employee {
     salary = 0,
     status = "active",
   }) {
+    if (typeof id !== "string" || id.trim() === "") {
+      throw new Error("Employee ID is required");
+    }
+
     if (typeof firstName !== "string" || firstName.trim() === "") {
       throw new Error("First name is required");
     }
@@ -61,7 +65,7 @@ export class Employee {
       throw new Error("Status must be active, inactive, or on-leave");
     }
 
-    this.id = id;
+    this.id = id.trim();
     this.firstName = firstName.trim();
     this.lastName = lastName.trim();
     this.email = normalizedEmail;
