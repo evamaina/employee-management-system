@@ -4,6 +4,7 @@ import { initializeEmployeeTableActions } from "./components/employeeTableAction
 import { initializeEmployeeFilters } from "./components/employeeFilters.js";
 import { initializeEmployeePagination } from "./components/employeePagination.js";
 import { initializeEmployeeExport } from "./components/employeeExport.js";
+import { initializeEmployeeImport } from "./components/employeeImport.js";
 import { EmployeeService } from "./services/employeeService.js";
 import {
   hasStoredEmployees,
@@ -86,6 +87,24 @@ function persistAndRender() {
   saveEmployees(employeeService.getAll());
   renderApplication();
 }
+
+initializeEmployeeImport({
+  onImport(employees) {
+    if (employees.length === 0) {
+      throw new Error("The CSV file contains no employee records");
+    }
+
+    employeeService.addMany(employees);
+    currentPage = 1;
+    persistAndRender();
+
+    const label = employees.length === 1 ? "employee" : "employees";
+
+    window.alert(
+      `${employees.length} ${label} imported successfully.`,
+    );
+  },
+});
 
 const employeeDialog = initializeEmployeeDialog((formData) => {
   const { employeeId, ...employeeData } = formData;
